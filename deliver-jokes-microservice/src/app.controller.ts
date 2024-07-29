@@ -1,12 +1,18 @@
-import { Controller, Get } from '@nestjs/common';
+/* eslint-disable prettier/prettier */
+import { Controller, Get, Query } from '@nestjs/common';
 import { AppService } from './app.service';
 
-@Controller()
+@Controller('jokes')
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  getRandomJoke(@Query('type') type: string): string {
+    return this.appService.getRandomJoke(type);
+  }
+
+  @Get('types')
+  getJokeTypes(): string[] {
+    return this.appService.getJokeTypes();
   }
 }
